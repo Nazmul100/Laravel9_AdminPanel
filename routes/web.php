@@ -22,9 +22,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 
-Route::middleware(['auth','is_admin'])->group(function () {
+Route::middleware(['auth','role:admin'])->group(function () {
 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+});
+
+Route::middleware(['auth','role:is_writer'])->group(function () {
+
+    Route::get('/writers', [AdminController::class, 'index'])->name('admin.index');
 });
 
 
